@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pet Shop: GAG & SAB</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+/* BODY & BACKGROUND */
+body, html {
+  margin: 0; 
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(270deg, #ff416c, #ff4b2b, #00c6ff, #0072ff, #ff416c);
+  background-size: 1000% 1000%;
+  animation: gradientBG 30s ease infinite;
+  color: #f1f1f1;
+  overflow-x: hidden;
+  position: relative;
+}
+
+@keyframes gradientBG {
+  0% {background-position: 0% 50%;}
+  50% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
+}
+
+/* PARTICLE OVERLAY */
+body::before {
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events: none;
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  animation: moveParticles 60s linear infinite;
+}
+
+@keyframes moveParticles {
+  0% {background-position: 0 0;}
+  100% {background-position: 1000px 1000px;}
+}
+
+/* WRAPPER & HEADER */
+.wrap {max-width:1200px; margin:auto; padding:40px 20px;}
+header {text-align:center; margin-bottom:20px;}
+h1 {
+  font-size:3rem;
+  background: linear-gradient(90deg,#ff416c,#ff4b2b,#00c6ff,#0072ff);
+  -webkit-background-clip: text; 
+  color: transparent; 
+  font-weight:900;
+}
+
+/* NAVIGATION */
+nav {display:flex; justify-content:center; margin-bottom:40px; gap:20px;}
+nav button {
+  padding:12px 25px; border:none; border-radius:50px; font-weight:700;
+  font-size:1rem; cursor:pointer; color:white;
+  background: linear-gradient(90deg,#ff416c,#ff4b2b,#00c6ff,#0072ff);
+  transition:0.3s all;
+}
+nav button:hover {
+  box-shadow: 0 0 10px rgba(0,0,255,0.3),0 0 20px rgba(0,255,255,0.2),0 0 30px rgba(255,0,255,0.2);
+  transform: translateY(-3px);
+}
+
+/* SECTIONS & CARDS */
+section {display:none;}
+section.active {display:block;}
+.grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:25px;
+}
+.card {
+  background: rgba(255,255,255,0.05); border-radius:20px;
+  padding:20px; text-align:center; backdrop-filter:blur(10px);
+  transition: transform 0.3s, box-shadow 0.3s; position: relative; z-index:1;
+}
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow:0 0 15px rgba(0,255,255,0.2),0 0 25px rgba(255,0,255,0.15);
+}
+.pet-img img {width:100%; height:180px; object-fit:cover; border-radius:15px; border:2px solid #fff;}
+.name {font-weight:900; margin-top:10px; font-size:1.2rem;}
+.price {font-weight:700; color:#ffd700;}
+.btn-discord {
+  display:block; margin-top:10px; padding:10px; border:none; border-radius:50px;
+  background:#5865f2; color:white; text-decoration:none; transition:0.3s all;
+}
+.btn-discord:hover {
+  box-shadow:0 0 10px rgba(0,0,255,0.3),0 0 20px rgba(0,255,255,0.2);
+  transform: translateY(-3px);
+}
+.about {
+  text-align:center; font-size:1.2rem; line-height:1.8;
+  max-width:800px; margin:auto; padding:20px;
+  background: rgba(255,255,255,0.05); border-radius:20px; backdrop-filter:blur(10px);
+}
+/* Top-right social icons */
+.social-icons {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 15px;
+  z-index: 1000;
+}
+
+.social-icons a img {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.social-icons a img:hover {
+  transform: scale(1.2);
+  filter: brightness(1.3);
+}
+</style>
+<script>
+function showSection(sectionId){
+  const sections = document.querySelectorAll('section');
+  sections.forEach(sec => sec.style.display = 'none');
+  document.getElementById(sectionId).style.display = 'block';
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+<!-- SOCIAL ICONS -->
+<div class="social-icons">
+  <a href="https://youtube.com/@BlackStormz" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+  </a>
+  <a href="https://www.roblox.com/groups/390550988/BlackStormz-Official" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/128/15071/15071850.png" alt="Roblox Group">
+  </a>
+  <a href="https://discord.com/invite/k4Bw4ecgKF" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111370.png" alt="Discord">
+  </a>
+</div>
+
+<header><h1>🌟 Pet Shop: GAG & SAB 🌟</h1></header>
+
+<!-- NAVIGATION -->
+<nav>
+  <button onclick="showSection('home')">Home</button>
+  <button onclick="showSection('garden')">Grow a Garden</button>
+  <button onclick="showSection('brainrot')">Steal a Brainrot</button>
+  <button onclick="showSection('server-info')">Discord</button>
+</nav>
+
+<!-- HOME SECTION -->
+<section id="home" class="active">
+<div class="about">
+<h2>Welcome to the <strong>BlackStormz</strong> Pet Shop!</h2>
+<p>"🎉 Welcome to the ULTIMATE Pet Shop! 🌟 Step into a magical world of legendary pets from Grow a Garden 🌸 and Steal a Brainrot 👾. From mystical Kitsunes 🦊 to rare Brainrot secrets 🌀, there’s a companion for every collector. Build your dream collection, and show off your epic pets 🐾. All purchases happen directly on Discord 💬, so gear up, explore, and become the ultimate pet master 🏆! Let the adventure begin! 🚀"</p>
+<h2>INSTRUCTIONS ON BUYING:</h2>
+<p>To buy anything from our shop, join our Discord server by clicking on “Buy on Discord” and open a ticket “Buy in-game” in the server✨. Answer the questions on the screen that pops up, and the salesman will be there to assist ASAP👑.</p>
+<p>Note: Please do not rush, as there might be a lot of active tickets on the server.</p>
+<p>Thank you for shopping with us!</p>
+</div>
+</section>
+
+<!-- GARDEN SECTION -->
+<section id="garden" style="display:none">
+<h2 style="text-align:center;">🌸 Grow a Garden Pets</h2>
+<div class="grid">
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/e/e0/5000%24.png/revision/latest?cb=20250727025316" alt="Sheckles 1sx"></div>
+    <div class="name">Sheckles 1sx</div>
+    <div class="price">15 RBX / $0.2</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/1/15/MimicOctopusImage.png/revision/latest?cb=20250806125636" alt="Mimic Octopus"></div>
+    <div class="name">Mimic Octopus</div>
+    <div class="price">390 RBX / $1.7</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/7/7a/Queen_bee.png/revision/latest?cb=20250806113123" alt="Queen Bee"></div>
+    <div class="name">Queen Bee</div>
+    <div class="price">330 RBX / $1</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/c/c9/DragonflyIcon.png/revision/latest/scale-to-width-down/1200?cb=20250603072107" alt="Dragonfly"></div>
+    <div class="name">Dragonfly</div>
+    <div class="price">400 RBX / $2</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/1/18/Thy_Butterfly_V2.png/revision/latest?cb=20250806112723" alt="Butterfly"></div>
+    <div class="name">Butterfly</div>
+    <div class="price">630 RBX / $3</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/0/04/Kitsune.png/revision/latest?cb=20250808131201" alt="Kitsune"></div>
+    <div class="name">Kitsune</div>
+    <div class="price">4.5k RBX / $16</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/2/2a/CorruptedKitsune.png/revision/latest?cb=20250815163506" alt="Corrupted Kitsune"></div>
+    <div class="name">Corrupted Kitsune</div>
+    <div class="price">200 RBX / $0.8</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/f/f2/DiscoBeeIcon.gif/revision/latest?cb=20250806112507" alt="Disco Bee"></div>
+    <div class="name">Disco Bee</div>
+    <div class="price">1450 RBX / $7</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/b/be/Chicken_Zombie_Icon.png/revision/latest?cb=20250814115600" alt="Chicken Zombie"></div>
+    <div class="name">Chicken Zombie</div>
+    <div class="price">150 RBX / $0.6</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/7/7e/FrenchFryFerret.png/revision/latest?cb=20250806114922" alt="Ferret"></div>
+    <div class="name">Ferret</div>
+    <div class="price">100 RBX / $0.5</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/f/f8/T-Rex.png/revision/latest?cb=20250705092909" alt="T-Rex"></div>
+    <div class="name">T-Rex</div>
+    <div class="price">400 RBX / $2</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/2/24/Spinosaurus.png/revision/latest/scale-to-width/360?cb=20250712071322" alt="Spino"></div>
+    <div class="name">Spino</div>
+    <div class="price">650 RBX / $3</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/e/e8/FennecFoxIcon.png/revision/latest?cb=20250626225726" alt="Fennec Fox"></div>
+    <div class="name">Fennec Fox</div>
+    <div class="price">800 RBX / $4</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/7/7b/GriffinPet.png/revision/latest/scale-to-width/360?cb=20250823061936" alt="Griffin"></div>
+    <div class="name">Griffin</div>
+    <div class="price">150 RBX / $0.5</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+
+  <div class="card">
+    <div class="pet-img"><img src="https://static.wikia.nocookie.net/growagarden/images/5/58/GoldenGoose.png/revision/latest/thumbnail/width/360/height/360?cb=20250816034409" alt="Golden Goose"></div>
+    <div class="name">Golden Goose</div>
+    <div class="price">150 RBX / $0.5</div>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a>
+  </div>
+</div>
+</section>
+
+<!-- BRAINROT SECTION -->
+<section id="brainrot" style="display:none">
+<h2 style="text-align:center;">👾 Steal a Brainrot Pets</h2>
+<div class="grid">
+  <div class="card"><div class="pet-img"><img 
+src="https://wallpapers.com/images/hd/white-question-mark-black-background-4915nu7xjv2gq8v5.jpg" alt="RANDOM SECRET IN SAB"></div><div class="name">RANDOM SECRET IN SAB</div><div class="price">350 RBX / $2.5</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://elements-resized.envatousercontent.com/elements-video-cover-images/fe8be40e-f1c9-458c-a0a8-e921dbf160e6/video_preview/video_preview_0000.jpg?w=500&cf_fit=cover&q=85&format=auto&s=01b9fc00d3b90ca225d8ce6c808743dcc9c2973c7266917a8bb84075b9de2077" alt="RANDOM BRAINROT GOD"></div><div class="name">RANDOM BRAINROT GOD</div><div class="price">250 RBX / $1</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://preview.redd.it/where-can-i-get-all-these-icons-that-almost-every-roblox-v0-3xxbtl8zzxgb1.png?width=420&format=png&auto=webp&s=42a7876c1602ebfff91f17075bc66c5b87823512" alt="ANY REBIRTH PETS REQUIRED"></div><div class="name">ANY REBIRTH PETS REQUIRED</div><div class="price">20 - 350 RBX / $0.2 - $3.5</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img src="https://static.wikia.nocookie.net/stealabr/images/a/a4/Trippi_Troppi_Trooppi_TrooaaapppaaHELP_IM_ABOUT_TO_GET_INTO_A_CAR_CRASH.png/revision/latest?cb=20250902182246" alt="Trippi Troppi Trippi Trapa"></div><div class="name">Trippi Troppi Trippi Trapa</div><div class="price">150 RBX / $0.6</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://static.wikia.nocookie.net/stealabr/images/b/b9/Sammyni_Spyderini_fr.png/revision/latest?cb=20250816133506" alt="Sammyini Spiderini"></div><div class="name">Sammyini Spiderini</div><div class="price">250 RBX / $1</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-17742e15145af1f7b9cbf79c316a6120/420/420/JacketAccessory/Webp/noFilter" alt="La Vacca Saturno Saturnita"></div><div class="name">La Vacca Saturno Saturnita</div><div class="price">350 RBX / $1.7</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-5343214170371efdfc284400b6a5e54d/420/420/Hat/Png/noFilter" alt="Odin din dun dun dun dun dun"></div><div class="name">Odin din dun dun dun dun dun</div><div class="price">120 RBX / $0.8</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://static.wikia.nocookie.net/stealabr/images/8/82/Dul_Dul_Dul.png/revision/latest?cb=20250909224519" alt="Dul dul dul dul dul dul"></div><div class="name">Dul dul dul dul dul dul</div><div class="price">500 RBX / $2</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-9e7f9cb248dbaa40f49465ffb5ff0beb/420/420/LayeredAccessory/Webp/noFilter" alt="Espresso Signoraaaaaa"></div><div class="name">Espresso Signoraaaaaa</div><div class="price">400 RBX / $1.6</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://static.wikia.nocookie.net/stealabr/images/d/de/Agarrini_la_Palini.png/revision/latest?cb=20250816172031" alt="Agarrini La Paliniiiiii"></div><div class="name">Agarrini La Paliniiiiii</div><div class="price">450 RBX / $1.8</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-98a15f846a8fcfce4591cb1d06a767fa/420/420/JacketAccessory/Webp/noFilter" alt="Ballerino Lolololololo"></div><div class="name">Ballerino Lolololololo</div><div class="price">200 RBX / $0.99</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-20889dc8537cf24d3a5a24045510d059/420/420/WaistAccessory/Webp/noFilter" alt="TRALALELO TRALALAAA"></div><div class="name">TRALALELO TRALALAAA</div><div class="price">175 RBX / $0.6</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://static.wikia.nocookie.net/stealabr/images/1/15/Tralalita.png/revision/latest?cb=20250818004150" alt="Tralalita Tralalaaaaa"></div><div class="name">Tralalita Tralalaaaaa</div><div class="price">175 RBX / $0.6</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://tr.rbxcdn.com/180DAY-8a6e9e223e46a9abfeda6649b5316cff/420/420/WaistAccessory/Webp/noFilter" alt="Karkerkar Kurkurrrr"></div><div class="name">Karkerkar Kurkurrrr</div><div class="price">500 RBX / $2.3</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+<div class="card"><div class="pet-img"><img 
+src="https://img.freepik.com/premium-vector/custom-hand-drawn-lettering-phrase-vector_956226-72.jpg" alt="Custom Brainrot"></div><div class="name">Custom Brainrot</div><div class="price">Discussed in tickets on discord</div><a href="https://discord.gg/k4Bw4ecgKF" target="_blank" class="btn-discord">Buy on Discord</a></div>
+</div>
+</section>
+
+<!-- DISCORD INFO SECTION -->
+<section id="server-info" style="display:none">
+  <div class="about" style="background: rgba(0,0,0,0.3); padding:30px; border-radius:25px; text-align:center; backdrop-filter:blur(15px);">
+    <h2 style="font-size:2rem; font-weight:900; background: linear-gradient(90deg,#ff416c,#ff4b2b,#00c6ff,#0072ff); -webkit-background-clip: text; color: transparent;">🔥 BlackStormz Discord 🔥</h2>
+    <p style="font-size:1.2rem; line-height:1.8; color:#f1f1f1; max-width:800px; margin:auto;">
+      Welcome to the ultimate hub for pet collectors! 🌟 Buy rare and legendary pets from <strong>Grow a Garden</strong> 🌸 and <strong>Steal a Brainrot</strong> 👾, connect with other enthusiasts, and grab exclusive updates. 
+      Open a ticket to instantly purchase your dream pets, or join the community and share your epic collections! 💬🎮
+    </p>
+    <a href="https://discord.gg/k4Bw4ecgKF" target="_blank" 
+       style="display:inline-block; margin-top:20px; padding:15px 30px; border-radius:50px; font-weight:700; font-size:1.1rem; color:#fff; background: #5865f2; text-decoration:none; transition:0.3s all;">
+       Join the Server 🚀
+    </a>
+  </div>
+</section>
+
+</div> <!-- End wrap -->
+</body>
+</html>
